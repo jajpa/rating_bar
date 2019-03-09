@@ -39,20 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline,
             ),
             SizedBox(height: 32),
-            SizedBox(
-              width: 300,
-              child: Container(
-                color: Colors.red,
-                child: RatingBar(
-                  size: 48,
-                  isHalfAllowed: true,
-                  onRatingChanged: (value) {
-                    setState(() {
-                      _rating = value;
-                    });
-                  },
-                ),
-              ),
+            RatingBar(
+              size: 48,
+              isHalfAllowed: false,
+              onRatingChanged: (value) {
+                _rating = value;
+                setState(() {});
+              },
             )
           ],
         ),

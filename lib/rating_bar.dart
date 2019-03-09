@@ -13,8 +13,7 @@ class RatingBar extends StatefulWidget {
     this.color,
     this.size = 24,
     this.isHalfAllowed = false,
-  })  : assert(onRatingChanged != null),
-        super(key: key);
+  }) : super(key: key);
 
   final int starCount;
   final RatingCallback onRatingChanged;
@@ -41,15 +40,13 @@ class RatingBarState extends State<RatingBar> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      child: Container(
-        color: Colors.green,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(
-            widget.starCount,
-            (index) => buildStar(context, index + 1),
-          ),
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(widget.starCount, (index) {
+          return Builder(
+            builder: (rowContext) => buildStar(rowContext, index + 1),
+          );
+        }),
       ),
     );
   }
