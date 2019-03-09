@@ -11,7 +11,6 @@ class RatingBar extends StatefulWidget {
     @required this.onRatingChanged,
     this.initialRating = 0.0,
     this.color,
-    this.borderColor,
     this.size = 24,
     this.isHalfAllowed = false,
   })  : assert(onRatingChanged != null),
@@ -21,7 +20,6 @@ class RatingBar extends StatefulWidget {
   final RatingCallback onRatingChanged;
   final double initialRating;
   final Color color;
-  final Color borderColor;
   final double size;
   final bool isHalfAllowed;
 
@@ -42,14 +40,17 @@ class RatingBarState extends State<RatingBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Wrap(
-          alignment: WrapAlignment.start,
+    return Align(
+      child: Container(
+        color: Colors.green,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: List.generate(
             widget.starCount,
             (index) => buildStar(context, index + 1),
-          )),
+          ),
+        ),
+      ),
     );
   }
 
