@@ -7,28 +7,44 @@ typedef void RatingCallback(double rating);
 class RatingBar extends StatefulWidget {
   RatingBar({
     Key key,
-    this.starCount = 5,
+    this.maxRating = 5,
     @required this.onRatingChanged,
-    this.initialRating = 0.0,
-    this.color,
-    this.size = 24,
+    @required this.filledIcon,
+    @required this.emptyIcon,
+    this.halfFilledIcon,
     this.isHalfAllowed = false,
-  }) : super(key: key);
+    this.initialRating = 0.0,
+    this.filledColor,
+    this.emptyColor = Colors.grey,
+    this.halfFilledColor,
+    this.size = 40,
+  })  : assert(maxRating != null),
+        assert(filledIcon != null),
+        assert(emptyIcon != null),
+        assert(isHalfAllowed != null),
+        assert(!isHalfAllowed || halfFilledIcon != null),
+        assert(size != null),
+        super(key: key);
 
-  final int starCount;
+  final int maxRating;
+  final IconData filledIcon;
+  final IconData emptyIcon;
+  final IconData halfFilledIcon;
   final RatingCallback onRatingChanged;
   final double initialRating;
-  final Color color;
+  final Color filledColor;
+  final Color emptyColor;
+  final Color halfFilledColor;
   final double size;
   final bool isHalfAllowed;
 
   @override
-  RatingBarState createState() {
-    return RatingBarState();
+  _RatingBarState createState() {
+    return _RatingBarState();
   }
 }
 
-class RatingBarState extends State<RatingBar> {
+class _RatingBarState extends State<RatingBar> {
   double _currentRating;
 
   @override
@@ -42,7 +58,7 @@ class RatingBarState extends State<RatingBar> {
     return Align(
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: List.generate(widget.starCount, (index) {
+        children: List.generate(widget.maxRating, (index) {
           return Builder(
             builder: (rowContext) => buildStar(rowContext, index + 1),
           );
@@ -51,27 +67,28 @@ class RatingBarState extends State<RatingBar> {
     );
   }
 
-  Widget buildStar(BuildContext context, int position) {
+  Widget buildIcon(BuildContext context, int position) {
     IconData iconData;
+    Color color;
     print('position ${position.toDouble()} currentRating $_currentRating');
-    if (position.toDouble() > (_currentRating + 0.5)) {
-      iconData = Icons.star_border;
-    } else if (position.toDouble() == (_currentRating + 0.5)) {
-      iconData = Icons.star_half;
+    if (position > _currentRating + 0.5) {
+      iconData = widget.emptyIcon;
+      color = widget.emptyColor ?? Colors.grey;
+    } else if (position == _currentRating + 0.5) {
+      iconData = widget.halfFilledIcon;
+      color = widget.halfFilledColor ?? widget.filledColor ?? Theme.of(context).primaryColor;
     } else {
-      iconData = Icons.star;
+      iconData = widget.filledIcon;
+      color = widget.filledColor ?? Theme.of(context).primaryColor;
     }
+    return Icon(iconData, color: color, size: widget.size);
+  }
 
+  Widget buildStar(BuildContext context, int position) {
     return GestureDetector(
-      child: Icon(
-        iconData,
-        color: widget.color ?? Theme.of(context).primaryColor,
-        size: widget.size,
-      ),
+      child: buildIcon(context, position),
       onTap: () {
-        setState(() {
-          _currentRating = position.toDouble();
-        });
+        setState(() => _currentRating = position.toDouble());
         widget.onRatingChanged(_currentRating);
       },
       onHorizontalDragUpdate: (details) {
@@ -81,19 +98,15 @@ class RatingBarState extends State<RatingBar> {
 
         if (rating < 0) {
           rating = 0;
-        } else if (rating > widget.starCount) {
-          rating = widget.starCount.toDouble();
+        } else if (rating > widget.maxRating) {
+          rating = widget.maxRating.toDouble();
         } else {
-          rating = widget.isHalfAllowed
-              ? (2 * rating).ceilToDouble() / 2
-              : rating.ceilToDouble();
+          rating = widget.isHalfAllowed ? (2 * rating).ceilToDouble() / 2 : rating.ceilToDouble();
         }
         if (_currentRating != rating) {
-          setState(() {
-            _currentRating = rating;
-          });
+          setState(() => _currentRating = rating);
+          widget.onRatingChanged(_currentRating);
         }
-        widget.onRatingChanged(_currentRating);
       },
     );
   }
