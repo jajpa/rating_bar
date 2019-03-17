@@ -2,7 +2,7 @@
 
 A customizable *Rating Bar* for flutter
 
-<!--[![pub package](https://img.shields.io/pub/v/paging.svg?style=popout)](https://pub.dartlang.org/packages/paging)-->
+[![pub package](https://img.shields.io/pub/v/rating_bar.svg?style=popout)](https://pub.dartlang.org/packages/rating_bar)
 
 ## Installation
 
@@ -39,7 +39,7 @@ rating which is a double whenever the rating has changed.
 
 ## Screenshots
 
-![](/flutter_01.png)
+<image src="https://raw.github.com/joshmatta/rating_bar/master/flutter_01.png" width="350px"/>
 
 ## License
-[MIT License](/LICENSE)
+[MIT License](https://github.com/joshmatta/rating_bar/blob/master/LICENSE)
