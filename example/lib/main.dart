@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             emptyIcon: Icons.star_border,
             halfFilledIcon: Icons.star_half,
             isHalfAllowed: true,
+            filledColor: Colors.amber,
             size: 36,
           ),
           SizedBox(height: 32),
