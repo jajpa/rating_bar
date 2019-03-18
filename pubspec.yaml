@@ -1,6 +1,6 @@
 name: rating_bar
-description: A customizable Rating Bar for flutter
-version: 0.1.0
+description: A customizable Rating Bar for flutter with half rating support
+version: 0.1.1
 author: Joshua Matta<joshuamatta1996@gmail.com>
 homepage: https://github.com/joshmatta/rating_bar
 

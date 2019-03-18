@@ -76,7 +76,9 @@ class _RatingBarState extends State<RatingBar> {
       color = widget.emptyColor ?? Colors.grey;
     } else if (position == _currentRating + 0.5) {
       iconData = widget.halfFilledIcon;
-      color = widget.halfFilledColor ?? widget.filledColor ?? Theme.of(context).primaryColor;
+      color = widget.halfFilledColor ??
+          widget.filledColor ??
+          Theme.of(context).primaryColor;
     } else {
       iconData = widget.filledIcon;
       color = widget.filledColor ?? Theme.of(context).primaryColor;
@@ -101,7 +103,9 @@ class _RatingBarState extends State<RatingBar> {
         } else if (rating > widget.maxRating) {
           rating = widget.maxRating.toDouble();
         } else {
-          rating = widget.isHalfAllowed ? (2 * rating).ceilToDouble() / 2 : rating.ceilToDouble();
+          rating = widget.isHalfAllowed
+              ? (2 * rating).ceilToDouble() / 2
+              : rating.ceilToDouble();
         }
         if (_currentRating != rating) {
           setState(() => _currentRating = rating);

@@ -1,6 +1,6 @@
 # rating_bar
 
-A customizable *Rating Bar* for flutter
+A customizable *Rating Bar* for flutter with half rating support
 
 [![pub package](https://img.shields.io/pub/v/rating_bar.svg?style=popout)](https://pub.dartlang.org/packages/rating_bar)
 
@@ -20,8 +20,8 @@ First import paging.dart
 ```dart
   import 'package:rating_bar/rating_bar.dart';
 ```
-In the `RatingBar` widget `onRatingChanged` callback returns current 
-rating which is a double whenever the rating has changed.
+`onRatingChanged` callback returns current rating which is a double,
+when the rating has changed.
 
 ```dart
   RatingBar(
