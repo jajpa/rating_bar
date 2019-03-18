@@ -11,7 +11,7 @@ Add this to your package's pubspec.yaml file
 ```yaml
 dependencies:
   ...
-  paging: ^latest.version.here
+  rating_bar: ^latest.version.here
 ```
 
 ## Usage
