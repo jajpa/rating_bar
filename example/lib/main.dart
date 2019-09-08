@@ -45,6 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
             filledIcon: Icons.star,
             emptyIcon: Icons.star_border,
           ),
+          SizedBox(height: 32),
+          Text(
+            'Read Only Rating : 3.5',
+            style: Theme.of(context).textTheme.subhead,
+          ),
+          SizedBox(height: 8),
           RatingBar.readOnly(
             initialRating: 3.5,
             isHalfAllowed: true,
@@ -60,7 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(height: 8),
           RatingBar(
             maxRating: 10,
-            onRatingChanged: (rating) => setState(() => _ratingStarLong = rating),
+            onRatingChanged: (rating) =>
+                setState(() => _ratingStarLong = rating),
             filledIcon: Icons.star,
             emptyIcon: Icons.star_border,
             halfFilledIcon: Icons.star_half,
