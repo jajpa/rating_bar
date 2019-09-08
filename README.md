@@ -37,6 +37,18 @@ when the rating has changed.
   ),
 ```
 
+You can also use read-only rating bar widget
+
+```dart
+  RatingBar.readOnly(
+    initialRating: 3.5,
+    isHalfAllowed: true,
+    halfFilledIcon: Icons.star_half,
+    filledIcon: Icons.star,
+    emptyIcon: Icons.star_border,
+  ),
+```
+
 ## Screenshots
 
 <image src="https://raw.github.com/joshmatta/rating_bar/master/flutter_01.png" width="350px"/>
