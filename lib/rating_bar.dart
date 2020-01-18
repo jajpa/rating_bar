@@ -13,6 +13,7 @@ class RatingBar extends StatefulWidget {
     @required this.emptyIcon,
     this.halfFilledIcon,
     this.isHalfAllowed = false,
+    this.aligns = Alignment.centerLeft,
     this.initialRating = 0.0,
     this.filledColor,
     this.emptyColor = Colors.grey,
@@ -35,6 +36,7 @@ class RatingBar extends StatefulWidget {
     @required this.emptyIcon,
     this.halfFilledIcon,
     this.isHalfAllowed = false,
+    this.aligns = Alignment.centerLeft,
     this.initialRating = 0.0,
     this.filledColor,
     this.emptyColor = Colors.grey,
@@ -62,6 +64,7 @@ class RatingBar extends StatefulWidget {
   final Color halfFilledColor;
   final double size;
   final bool isHalfAllowed;
+  final Alignment aligns;
   final bool _readOnly;
 
   @override
@@ -72,10 +75,11 @@ class RatingBar extends StatefulWidget {
 
 class _RatingBarState extends State<RatingBar> {
   double _currentRating;
-
+  Alignment _algins;
   @override
   void initState() {
     super.initState();
+    _algins = widget.aligns;
     if (widget.isHalfAllowed) {
       _currentRating = widget.initialRating;
     } else {
@@ -86,6 +90,7 @@ class _RatingBarState extends State<RatingBar> {
   @override
   Widget build(BuildContext context) {
     return Align(
+      alignment: _algins,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: List.generate(widget.maxRating, (index) {

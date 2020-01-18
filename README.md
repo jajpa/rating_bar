@@ -30,6 +30,7 @@ when the rating has changed.
     emptyIcon: Icons.star_border,
     halfFilledIcon: Icons.star_half,
     isHalfAllowed: true,
+    aligns: Alignment.centerLeft,
     filledColor: Colors.green,
     emptyColor: Colors.redAccent,
     halfFilledColor: Colors.amberAccent, 
@@ -43,6 +44,7 @@ You can also use read-only rating bar widget
   RatingBar.readOnly(
     initialRating: 3.5,
     isHalfAllowed: true,
+    aligns: Alignment.centerLeft,
     halfFilledIcon: Icons.star_half,
     filledIcon: Icons.star,
     emptyIcon: Icons.star_border,
