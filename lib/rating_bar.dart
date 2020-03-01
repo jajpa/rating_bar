@@ -19,6 +19,7 @@ class RatingBar extends StatefulWidget {
     this.emptyColor = Colors.grey,
     this.halfFilledColor,
     this.size = 40,
+    this.margin,
   })  : _readOnly = false,
         assert(maxRating != null),
         assert(initialRating != null),
@@ -42,6 +43,7 @@ class RatingBar extends StatefulWidget {
     this.emptyColor = Colors.grey,
     this.halfFilledColor,
     this.size = 40,
+    this.margin,
   })  : _readOnly = true,
         onRatingChanged = null,
         assert(maxRating != null),
@@ -66,6 +68,7 @@ class RatingBar extends StatefulWidget {
   final bool isHalfAllowed;
   final Alignment aligns;
   final bool _readOnly;
+  final EdgeInsetsGeometry margin;
 
   @override
   _RatingBarState createState() {
@@ -75,11 +78,12 @@ class RatingBar extends StatefulWidget {
 
 class _RatingBarState extends State<RatingBar> {
   double _currentRating;
-  Alignment _algins;
+  Alignment _aligns;
+
   @override
   void initState() {
     super.initState();
-    _algins = widget.aligns;
+    _aligns = widget.aligns;
     if (widget.isHalfAllowed) {
       _currentRating = widget.initialRating;
     } else {
@@ -90,7 +94,7 @@ class _RatingBarState extends State<RatingBar> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: _algins,
+      alignment: _aligns,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: List.generate(widget.maxRating, (index) {
@@ -129,7 +133,15 @@ class _RatingBarState extends State<RatingBar> {
       iconData = widget.filledIcon;
       color = widget.filledColor ?? Theme.of(context).primaryColor;
     }
-    return Icon(iconData, color: color, size: widget.size);
+
+    var icon = Icon(iconData, color: color, size: widget.size);
+
+    return widget.margin != null
+        ? Container(
+            margin: widget.margin,
+            child: icon,
+          )
+        : icon;
   }
 
   Widget buildStar(BuildContext context, int position) {
