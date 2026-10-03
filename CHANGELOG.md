@@ -1,4 +1,7 @@
-## [0.2.0] - September 09, 2019
-- Added read-only rating widget
-## [0.1.0] - March 18, 2019
-- Initial version
+## 1.0.0
+
+* **BREAKING**: Complete re-architecture for modern Dart 3 & Flutter 3 (Strict Null Safety).
+* **FEATURE**: Added precise fractional rating support via `allowFractionalRating` and `ClipRect`.
+* **FEATURE**: Added complete RTL layout support.
+* **FEATURE**: Added `RatingBar.custom` and `RatingBar.builder` constructors for complex widgets (like SVGs or per-index varying emojis).
+* **FEATURE**: Improved gesture handling for taps and drags.

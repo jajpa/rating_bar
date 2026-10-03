@@ -1,59 +1,61 @@
 # rating_bar
 
-A customizable *Rating Bar* for flutter with half rating support
+A highly customizable and precise Rating Bar for Flutter, designed for modern Dart and Flutter versions.
 
-[![pub package](https://img.shields.io/pub/v/rating_bar.svg?style=popout)](https://pub.dartlang.org/packages/rating_bar)
+## Features
 
-## Installation
-
-Add this to your package's pubspec.yaml file
-
-```yaml
-dependencies:
-  ...
-  rating_bar: ^latest.version.here
-```
-
-## Usage
-First import paging.dart
-
-```dart
-  import 'package:rating_bar/rating_bar.dart';
-```
-`onRatingChanged` callback returns current rating which is a double,
-when the rating has changed.
-
-```dart
-  RatingBar(
-    onRatingChanged: (rating) => setState(() => _rating = rating),
-    filledIcon: Icons.star,
-    emptyIcon: Icons.star_border,
-    halfFilledIcon: Icons.star_half,
-    isHalfAllowed: true,
-    aligns: Alignment.centerLeft,
-    filledColor: Colors.green,
-    emptyColor: Colors.redAccent,
-    halfFilledColor: Colors.amberAccent, 
-    size: 48,
-  ),
-```
-
-You can also use read-only rating bar widget
-
-```dart
-  RatingBar.readOnly(
-    initialRating: 3.5,
-    isHalfAllowed: true,
-    aligns: Alignment.centerLeft,
-    halfFilledIcon: Icons.star_half,
-    filledIcon: Icons.star,
-    emptyIcon: Icons.star_border,
-  ),
-```
+- **Precise Fractional Ratings:** Supports precise fractional values like 4.2 or 3.7.
+- **RTL Support:** Fully supports Right-to-Left layouts.
+- **Custom Item Builders:** Build complex rating bars using SVGs, varied icons per rating level (e.g., emojis), or generic widgets.
+- **Half-Star Support:** Snap to half or full stars if desired.
+- **Gestures:** Handles dragging, tapping, and swipe gestures to easily select values.
+- **Modern:** Fully updated for Dart 3 and Flutter 3 with strict null safety.
 
 ## Screenshots
 
-<image src="https://raw.github.com/joshmatta/rating_bar/master/flutter_01.png" width="350px"/>
+<img src="screenshot.png" alt="rating_bar example" width="600px"/>
 
-## License
-[MIT License](https://github.com/joshmatta/rating_bar/blob/master/LICENSE)
+## Usage
+
+Check out the `example/` folder for a complete working app.
+
+```dart
+// 1. Simple Icon Rating
+RatingBar(
+  initialRating: 3.5,
+  isHalfAllowed: true,
+  filledIcon: Icons.star,
+  emptyIcon: Icons.star_border,
+  halfFilledIcon: Icons.star_half,
+  filledColor: Colors.amber,
+  onRatingChanged: (rating) {
+    print(rating);
+  },
+)
+
+// 2. Precise Fractional Rating (Uses Stack + ClipRect)
+RatingBar.custom(
+  initialRating: 4.2,
+  allowFractionalRating: true,
+  filledWidget: const Icon(Icons.star, color: Colors.amber, size: 50),
+  emptyWidget: const Icon(Icons.star_border, color: Colors.grey, size: 50),
+  onRatingChanged: (rating) {
+    print(rating);
+  },
+)
+
+// 3. Custom Item Builder (Varying widgets per index)
+RatingBar.builder(
+  initialRating: 3.0,
+  itemBuilder: (context, index) {
+    // Return a RatingWidget with full and empty variants!
+    return RatingWidget(
+      full: Icon(Icons.sentiment_satisfied, color: Colors.green),
+      empty: Icon(Icons.sentiment_satisfied, color: Colors.grey),
+    );
+  },
+  onRatingChanged: (rating) {
+    print(rating);
+  },
+)
+```

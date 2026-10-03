@@ -1,98 +1,180 @@
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Rating Bar Demo'),
+      title: 'Rating Bar Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const RatingBarDemo(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class RatingBarDemo extends StatefulWidget {
+  const RatingBarDemo({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<RatingBarDemo> createState() => _RatingBarDemoState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  double _ratingStar = 0;
-  double _ratingStarLong = 0;
-  double _ratingSmile = 0;
+class _RatingBarDemoState extends State<RatingBarDemo> {
+  double _rating1 = 2.5;
+  double _rating2 = 3.0;
+  double _rating3 = 4.2;
+  double _rating4 = 1.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Rating : $_ratingStar',
-            style: Theme.of(context).textTheme.subhead,
-          ),
-          SizedBox(height: 8),
-          RatingBar(
-            onRatingChanged: (rating) => setState(() => _ratingStar = rating),
-            filledIcon: Icons.star,
-            emptyIcon: Icons.star_border,
-          ),
-          SizedBox(height: 32),
-          Text(
-            'Read Only Rating : 3.5',
-            style: Theme.of(context).textTheme.subhead,
-          ),
-          SizedBox(height: 8),
-          RatingBar.readOnly(
-            initialRating: 3.5,
-            isHalfAllowed: true,
-            halfFilledIcon: Icons.star_half,
-            filledIcon: Icons.star,
-            emptyIcon: Icons.star_border,
-          ),
-          SizedBox(height: 32),
-          Text(
-            'Rating : $_ratingStarLong',
-            style: Theme.of(context).textTheme.subhead,
-          ),
-          SizedBox(height: 8),
-          RatingBar(
-            maxRating: 10,
-            onRatingChanged: (rating) =>
-                setState(() => _ratingStarLong = rating),
-            filledIcon: Icons.star,
-            emptyIcon: Icons.star_border,
-            halfFilledIcon: Icons.star_half,
-            isHalfAllowed: true,
-            filledColor: Colors.amber,
-            size: 36,
-          ),
-          SizedBox(height: 32),
-          Text(
-            'Rating : $_ratingSmile',
-            style: Theme.of(context).textTheme.subhead,
-          ),
-          SizedBox(height: 8),
-          RatingBar(
-            onRatingChanged: (rating) => setState(() => _ratingSmile = rating),
-            filledIcon: Icons.sentiment_satisfied,
-            emptyIcon: Icons.sentiment_dissatisfied,
-            halfFilledIcon: Icons.sentiment_neutral,
-            isHalfAllowed: true,
-            filledColor: Colors.green,
-            emptyColor: Colors.redAccent,
-            halfFilledColor: Colors.amberAccent,
-            size: 48,
-          ),
-        ],
+      appBar: AppBar(title: const Text('Rating Bar Demo')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '1. Simple Icon (Half Allowed)',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            RatingBar(
+              initialRating: _rating1,
+              isHalfAllowed: true,
+              filledIcon: Icons.star,
+              emptyIcon: Icons.star_border,
+              halfFilledIcon: Icons.star_half,
+              filledColor: Colors.amber,
+              onRatingChanged: (rating) {
+                setState(() {
+                  _rating1 = rating;
+                });
+              },
+            ),
+            Text(
+              'Rating: $_rating1',
+              style: const TextStyle(color: Colors.grey),
+            ),
+            const Divider(height: 32),
+
+            const Text(
+              '2. Custom Widgets',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            RatingBar.custom(
+              initialRating: _rating2,
+              filledWidget: const Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 40,
+              ),
+              emptyWidget: const Icon(
+                Icons.favorite_border,
+                color: Colors.grey,
+                size: 40,
+              ),
+              onRatingChanged: (rating) {
+                setState(() {
+                  _rating2 = rating;
+                });
+              },
+            ),
+            Text(
+              'Rating: $_rating2',
+              style: const TextStyle(color: Colors.grey),
+            ),
+            const Divider(height: 32),
+
+            const Text(
+              '3. Precise Fractional (4.2 stars)',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            RatingBar.custom(
+              initialRating: _rating3,
+              allowFractionalRating: true,
+              filledWidget: const Icon(
+                Icons.star,
+                color: Colors.amber,
+                size: 50,
+              ),
+              emptyWidget: const Icon(
+                Icons.star_border,
+                color: Colors.grey,
+                size: 50,
+              ),
+              onRatingChanged: (rating) {
+                setState(() {
+                  _rating3 = rating;
+                });
+              },
+            ),
+            Text(
+              'Rating: ${_rating3.toStringAsFixed(2)}',
+              style: const TextStyle(color: Colors.grey),
+            ),
+            const Divider(height: 32),
+
+            const Text(
+              '4. Builder with Emoticons',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            RatingBar.builder(
+              initialRating: _rating4,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, index) {
+                IconData icon;
+                Color color;
+                switch (index) {
+                  case 0:
+                    icon = Icons.sentiment_very_dissatisfied;
+                    color = Colors.red;
+                    break;
+                  case 1:
+                    icon = Icons.sentiment_dissatisfied;
+                    color = Colors.redAccent;
+                    break;
+                  case 2:
+                    icon = Icons.sentiment_neutral;
+                    color = Colors.amber;
+                    break;
+                  case 3:
+                    icon = Icons.sentiment_satisfied;
+                    color = Colors.lightGreen;
+                    break;
+                  case 4:
+                  default:
+                    icon = Icons.sentiment_very_satisfied;
+                    color = Colors.green;
+                    break;
+                }
+                return RatingWidget(
+                  full: Icon(icon, color: color, size: 40),
+                  empty: Icon(icon, color: Colors.grey.shade300, size: 40),
+                );
+              },
+              onRatingChanged: (rating) {
+                setState(() {
+                  _rating4 = rating;
+                });
+              },
+            ),
+            Text(
+              'Rating: $_rating4',
+              style: const TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
       ),
     );
   }
