@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Fix screenshot URLs in README to load properly on pub.dev.
+
 ## 1.0.0
 
 * **BREAKING**: Complete re-architecture for modern Dart 3 & Flutter 3 (Strict Null Safety).
