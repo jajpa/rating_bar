@@ -13,7 +13,16 @@ A highly customizable and precise Rating Bar for Flutter, designed for modern Da
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/jajpa/rating_bar/master/screenshot.png" alt="rating_bar example" width="600px"/>
+![rating_bar example](https://raw.githubusercontent.com/jajpa/rating_bar/master/flutter_01.png)
+
+## Installation
+
+Add this to your package's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  rating_bar: ^1.0.2
+```
 
 ## Usage
 
